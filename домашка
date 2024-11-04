@@ -1,0 +1,33 @@
+from datetime import datetime
+
+def parse_date(date_str):
+    formats = [
+        "%A, %B %d, %Y",        # The Moscow Times
+        "%A, %d.%m.%y",         # The Guardian
+        "%A, %d %B %Y"          # Daily News
+    ]
+    
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            continue
+    return None
+
+def main():
+    print("Введите дату в формате 'The Moscow Times', 'The Guardian' или 'Daily News'.")
+    print("Введите 'exit' для выхода.")
+    
+    while True:
+        user_input = input("Введите дату: ")
+        if user_input.lower() == 'exit':
+            break
+        
+        date_obj = parse_date(user_input)
+        if date_obj:
+            print(f"Объект datetime: {date_obj}")
+        else:
+            print("Неверный формат даты. Пожалуйста, попробуйте снова.")
+
+if __name__ == "__main__":
+    main()
